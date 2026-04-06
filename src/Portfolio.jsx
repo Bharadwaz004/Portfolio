@@ -76,7 +76,7 @@ const projects = [
     description: "A natural language to SQL query generator that connects to SQLite databases, dynamically extracts schema metadata, and uses a Graph + Vector RAG pipeline with Llama LLM to convert plain English questions into optimized SQL queries.",
     tech: ["Python", "LangChain", "Llama LLM", "SQLite", "HuggingFace"],
     github: "https://github.com/Bharadwaz004/nat_db_querier",
-    live: "",
+    live: "https://organic-waffle-pjw49q5x95qj39rx6-5173.app.github.dev/",
     category: "Data",
     color: "#8B5CF6",
   },
