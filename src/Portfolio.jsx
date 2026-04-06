@@ -72,9 +72,9 @@ const projects = [
   },
   {
     id: 4,
-    title: "Text2DB",
-    description: "A natural language to SQL query generator that connects to SQLite databases, dynamically extracts schema metadata, and uses a LangChain pipeline with Qwen LLM to convert plain English questions into optimized SQL queries.",
-    tech: ["Python", "LangChain", "Qwen LLM", "SQLite", "HuggingFace"],
+    title: "AskMyDB",
+    description: "A natural language to SQL query generator that connects to SQLite databases, dynamically extracts schema metadata, and uses a Graph + Vector RAG pipeline with Llama LLM to convert plain English questions into optimized SQL queries.",
+    tech: ["Python", "LangChain", "Llama LLM", "SQLite", "HuggingFace"],
     github: "https://github.com/Bharadwaz004/nat_db_querier",
     live: "",
     category: "Data",
