@@ -60,7 +60,7 @@ const projects = [
     github: "https://github.com/Bharadwaz004/nat_db_querier",
     live: "https://nat-db-querier.vercel.app/",
     category: "Data",
-    color: "#8B5CF6",
+    color: "#4169e1",
   },
   {
     id: 2,
@@ -70,7 +70,7 @@ const projects = [
     github: "https://github.com/Bharadwaz004/Quiz_Forge",
     live: "",
     category: "AI",
-    color: "#F97316",
+    color: "#e8c26a",
   },
   {
     id: 3,
@@ -80,7 +80,7 @@ const projects = [
     github: "https://github.com/Bharadwaz004/AI_Job_finder",
     live: "https://ai-job-finder-ten.vercel.app/",
     category: "AI",
-    color: "#EF4444",
+    color: "#6d8dff",
   },
   {
     id: 4,
@@ -90,7 +90,7 @@ const projects = [
     github: "",
     live: "",
     category: "AI",
-    color: "#EC4899",
+    color: "#d9a441",
   },
 ];
 
@@ -241,11 +241,11 @@ function CloudIcon({ size = 20 }) {
 }
 
 const categoryMeta = {
-  "Languages": { color: "#52b788", icon: <CodeIcon /> },
-  "Frameworks": { color: "#9d8bfa", icon: <LayersIcon /> },
-  "AI/ML": { color: "#f0b95c", icon: <SparklesIcon /> },
-  "Databases": { color: "#5cc8de", icon: <DatabaseIcon /> },
-  "Cloud & DevOps": { color: "#f088b6", icon: <CloudIcon /> },
+  "Languages": { color: "#4169e1", icon: <CodeIcon /> },
+  "Frameworks": { color: "#e8c26a", icon: <LayersIcon /> },
+  "AI/ML": { color: "#6d8dff", icon: <SparklesIcon /> },
+  "Databases": { color: "#d9a441", icon: <DatabaseIcon /> },
+  "Cloud & DevOps": { color: "#8fa8ff", icon: <CloudIcon /> },
 };
 
 const issuerBrands = {
@@ -307,7 +307,7 @@ function useInView(threshold = 0.15) {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      ([entry]) => setVisible(entry.isIntersecting),
       { threshold }
     );
     obs.observe(el);
@@ -572,15 +572,26 @@ function Hero() {
 }
 
 function About() {
+  // Photo hangs as an ID badge that drops down on its lanyard each time the section scrolls into view.
+  const [idRef, idVisible] = useInView(0.3);
   return (
     <section id="about" className="section">
       <SectionHeader index="01" title="About me" />
       <div className="about-grid">
-        <Reveal variant="left">
-          <div className="about-photo-frame">
-            <img src={PROFILE_IMG} alt={personalData.name} className="about-photo" />
+        <div className={`id-holder ${idVisible ? "show" : ""}`} ref={idRef}>
+          <div className="id-drop">
+            <div className="id-swing">
+              <div className="id-lanyard" />
+              <div className="id-card">
+                <div className="id-clip" />
+                <img src={PROFILE_IMG} alt={personalData.name} className="id-photo" />
+                <div className="id-name">{personalData.name}</div>
+                <div className="id-role">{personalData.title}</div>
+                <div className="id-barcode" />
+              </div>
+            </div>
           </div>
-        </Reveal>
+        </div>
         <Reveal delay={120} variant="right">
           <div className="about-body">
             {personalData.about.split("\n\n").map((paragraph) => (
@@ -603,7 +614,7 @@ function Skills() {
       <SectionHeader index="02" title="Skills" subtitle="The tools I reach for when building things." />
       <div className="skills-grid">
         {skillCategories.map((cat, i) => {
-          const meta = categoryMeta[cat] || { color: "#52b788", icon: <CodeIcon /> };
+          const meta = categoryMeta[cat] || { color: "#4169e1", icon: <CodeIcon /> };
           const items = skills.filter((s) => s.category === cat);
           return (
             <Reveal key={cat} delay={i * 90} variant={i % 2 === 0 ? "left" : "right"}>
@@ -697,7 +708,7 @@ function Certifications() {
       <SectionHeader index="04" title="Certifications" subtitle="Credentials that back up the craft." />
       <div className="certs-grid">
         {certifications.map((cert, i) => {
-          const brand = issuerBrands[cert.issuer] || { color: "#52b788", logo: <AwardIcon /> };
+          const brand = issuerBrands[cert.issuer] || { color: "#4169e1", logo: <AwardIcon /> };
           return (
             <Reveal key={cert.title} delay={i * 90} variant="zoom">
               <article
@@ -780,10 +791,10 @@ export default function Portfolio() {
           --text: #e4e4e7;
           --muted: #a1a1aa;
           --faint: #52525b;
-          --accent: #52b788;
-          --accent-2: #e6e6fa;
+          --accent: #4169e1;
+          --accent-2: #8fa8ff;
           --gold: #e8c26a;
-          --gradient: linear-gradient(120deg, #0b6623, #d9b45b 55%, #e6e6fa);
+          --gradient: linear-gradient(120deg, #1a3faa, #4169e1 55%, #e8c26a);
           --heading: 'Space Grotesk', system-ui, sans-serif;
           --body: 'Inter', system-ui, sans-serif;
         }
@@ -804,7 +815,7 @@ export default function Portfolio() {
           position: fixed;
           inset: 0;
           z-index: -1;
-          background: linear-gradient(-45deg, #0a100c, #101323, #0b1710, #171426, #0a100c);
+          background: linear-gradient(-45deg, #0a0d1c, #101323, #0d1226, #1a1508, #0a0d1c);
           background-size: 400% 400%;
           animation: bgShift 26s ease infinite;
         }
@@ -817,14 +828,14 @@ export default function Portfolio() {
         a { color: inherit; text-decoration: none; }
         section { scroll-margin-top: 90px; }
 
-        ::selection { background: rgba(11, 102, 35, 0.5); }
+        ::selection { background: rgba(65, 105, 225, 0.45); }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
 
         .gradient-text {
-          background: linear-gradient(120deg, #57c785, #e6e6fa, #e8c26a, #57c785);
+          background: linear-gradient(120deg, #6d8dff, #f5cf6b, #e8c26a, #6d8dff);
           background-size: 200% auto;
           -webkit-background-clip: text;
           background-clip: text;
@@ -895,11 +906,11 @@ export default function Portfolio() {
           transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
         }
         .btn-primary {
-          background: linear-gradient(120deg, #e6e6fa, #9fd6b0);
+          background: linear-gradient(120deg, #e8c26a, #6d8dff);
           color: #093d1c;
-          box-shadow: 0 4px 24px rgba(82, 183, 136, 0.3);
+          box-shadow: 0 4px 24px rgba(65, 105, 225, 0.35);
         }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(82, 183, 136, 0.45); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(65, 105, 225, 0.5); }
         .btn-ghost {
           background: var(--surface);
           border-color: var(--border);
@@ -984,6 +995,86 @@ export default function Portfolio() {
           to { opacity: 1; transform: none; }
         }
 
+        /* ── ID card (About section) ── */
+        .id-holder {
+          overflow: hidden;
+          padding: 0 18px 30px; /* side/bottom room so the swing isn't clipped */
+        }
+        .id-drop {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          transform: translateY(-105%);
+          transition: transform 0.85s cubic-bezier(0.34, 1.35, 0.5, 1);
+        }
+        .id-holder.show .id-drop { transform: translateY(0); }
+        .id-swing {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          transform-origin: top center;
+        }
+        .id-holder.show .id-swing { animation: idSwing 1.8s ease-in-out 0.5s; }
+        @keyframes idSwing {
+          0%, 100% { transform: rotate(0deg); }
+          22% { transform: rotate(4deg); }
+          52% { transform: rotate(-2.8deg); }
+          78% { transform: rotate(1.4deg); }
+        }
+        .id-lanyard {
+          width: 22px;
+          height: 88px;
+          background: var(--gradient);
+          clip-path: polygon(24% 0, 76% 0, 100% 100%, 0 100%);
+        }
+        .id-card {
+          width: 100%;
+          max-width: 280px;
+          padding: 26px 18px 18px;
+          background: #101019;
+          border: 1px solid var(--border-strong);
+          border-radius: 18px;
+          box-shadow: 0 28px 56px -18px rgba(0, 0, 0, 0.65);
+          text-align: center;
+        }
+        .id-clip {
+          width: 46px;
+          height: 10px;
+          margin: 0 auto 16px;
+          border-radius: 6px;
+          background: var(--bg);
+          border: 1px solid var(--border-strong);
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        .id-photo {
+          width: 100%;
+          aspect-ratio: 1;
+          object-fit: cover;
+          border-radius: 12px;
+          border: 1px solid var(--border);
+          display: block;
+        }
+        .id-name {
+          font-family: var(--heading);
+          font-size: 18px;
+          font-weight: 600;
+          margin-top: 14px;
+          line-height: 1.3;
+        }
+        .id-role {
+          font-size: 12.5px;
+          color: var(--gold);
+          letter-spacing: 0.5px;
+          margin-top: 3px;
+        }
+        .id-barcode {
+          height: 28px;
+          margin-top: 14px;
+          background: repeating-linear-gradient(90deg, var(--muted) 0, var(--muted) 2px, transparent 2px, transparent 5px);
+          opacity: 0.5;
+          border-radius: 2px;
+        }
+
         /* ── Hero ── */
         .hero {
           min-height: 100vh;
@@ -1009,13 +1100,13 @@ export default function Portfolio() {
         }
         .orb-1 {
           width: 480px; height: 480px;
-          background: #178a3f;
+          background: #2f54d0;
           top: -140px; right: -100px;
           animation: drift 14s ease-in-out infinite;
         }
         .orb-2 {
           width: 420px; height: 420px;
-          background: #9a9ae6;
+          background: #c09a35;
           bottom: -160px; left: -120px;
           animation: drift 18s ease-in-out infinite reverse;
         }
@@ -1055,12 +1146,12 @@ export default function Portfolio() {
         .pulse-dot {
           width: 8px; height: 8px;
           border-radius: 50%;
-          background: #22c55e;
+          background: #e8c26a;
           animation: pulse 2s ease-in-out infinite;
         }
         @keyframes pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
-          50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+          0%, 100% { box-shadow: 0 0 0 0 rgba(232, 194, 106, 0.5); }
+          50% { box-shadow: 0 0 0 6px rgba(232, 194, 106, 0); }
         }
         .hero-name {
           font-size: clamp(44px, 8vw, 76px);
@@ -1163,19 +1254,6 @@ export default function Portfolio() {
           grid-template-columns: 300px 1fr;
           gap: 56px;
           align-items: start;
-        }
-        .about-photo-frame {
-          position: relative;
-          border-radius: 20px;
-          padding: 3px;
-          background: var(--gradient);
-        }
-        .about-photo {
-          display: block;
-          width: 100%;
-          aspect-ratio: 1;
-          object-fit: cover;
-          border-radius: 17px;
         }
         .about-text { font-size: 17px; color: var(--muted); }
         .about-text + .about-text { margin-top: 16px; }
@@ -1422,9 +1500,9 @@ export default function Portfolio() {
           height: 46px;
           border: none;
           border-radius: 50%;
-          background: linear-gradient(120deg, #e6e6fa, #9fd6b0);
+          background: linear-gradient(120deg, #e8c26a, #6d8dff);
           color: #093d1c;
-          box-shadow: 0 6px 24px rgba(82, 183, 136, 0.4);
+          box-shadow: 0 6px 24px rgba(65, 105, 225, 0.45);
           opacity: 0;
           transform: translateY(16px);
           pointer-events: none;
@@ -1453,7 +1531,6 @@ export default function Portfolio() {
           .desktop-nav { display: none; }
           .mobile-toggle { display: block; }
           .about-grid { grid-template-columns: 1fr; gap: 36px; }
-          .about-photo-frame { max-width: 280px; }
           .skills-grid, .projects-grid, .certs-grid { grid-template-columns: 1fr; }
           .section { padding-top: 84px; }
         }
