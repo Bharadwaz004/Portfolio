@@ -39,6 +39,8 @@ const skills = [
   { name: "RAG", category: "AI/ML" },
   { name: "MCP", category: "AI/ML" },
   { name: "LLM", category: "AI/ML" },
+  { name: "LoRA", category: "AI/ML" },
+  { name: "PyTorch", category: "AI/ML" },
   { name: "TensorFlow", category: "AI/ML" },
   { name: "Scikit-learn", category: "AI/ML" },
   { name: "MongoDB", category: "Databases" },
@@ -48,36 +50,42 @@ const skills = [
   { name: "Docker", category: "Cloud & DevOps" },
   { name: "AWS", category: "Cloud & DevOps" },
   { name: "GCP", category: "Cloud & DevOps" },
+  { name: "System Design", category: "Engineering" },
+  { name: "DSA", category: "Engineering" },
+  { name: "OOPS", category: "Engineering" },
 ];
 
-const skillCategories = ["Languages", "Frameworks", "AI/ML", "Databases", "Cloud & DevOps"];
+const skillCategories = ["Languages", "Frameworks", "AI/ML", "Databases", "Cloud & DevOps", "Engineering"];
 
 const projects = [
   {
     id: 1,
+    title: "Ecom Support Assistant",
+    description: "A production-grade multi tool e-commerce support assistant answering queries grounded in store policy docs using RAG and a live orders database, exposed as an MCP server with a glass-box UI that streams the tool-call trace in real time. 33/34 answers fully grounded on a 34-case eval harness, with zero false refusals.",
+    tech: ["Python", "FastAPI", "MCP", "RAG", "PostgreSQL", "Evals"],
+    image: "/projects/ecom.png",
+    github: "https://github.com/Bharadwaz004/ecom_support",
+    live: "https://ecomsupport-production.up.railway.app/",
+    category: "AI",
+    color: "#e0783c",
+  },
+  {
+    id: 2,
     title: "AskMyDB",
-    description: "A natural language to SQL query generator that connects to SQLite databases, dynamically extracts schema metadata, and uses a Graph + Vector RAG pipeline with Llama LLM to convert plain English questions into optimized SQL queries.",
-    tech: ["Python", "LangChain", "Llama LLM", "SQLite", "HuggingFace"],
+    description: "A natural language to SQL engine using hybrid Vector + Graph RAG retrieval for inter-table relations, with multi-layer safety guardrails and zero-config database onboarding. 100% success across 31 functional tests, including complex multi-table joins.",
+    tech: ["LangChain", "Node.js", "Llama LLM", "Graph RAG", "SQLite", "LoRA"],
+    image: "/projects/askmydb.png",
     github: "https://github.com/Bharadwaz004/nat_db_querier",
     live: "https://nat-db-querier.vercel.app/",
     category: "Data",
     color: "#4169e1",
   },
   {
-    id: 2,
-    title: "QuizForge",
-    description: "A full-stack RAG-powered multi-user quiz platform with JWT authentication, role-based access, and a real-time leaderboard. Auto-generates quiz questions from uploaded documents using a three-layer anti-hallucination guardrail system.",
-    tech: ["React", "FastAPI", "MongoDB Atlas", "HuggingFace", "RAG", "JWT"],
-    github: "https://github.com/Bharadwaz004/Quiz_Forge",
-    live: "",
-    category: "AI",
-    color: "#e8c26a",
-  },
-  {
     id: 3,
     title: "ResumeMatch AI",
     description: "An AI-powered job matching platform that analyzes resumes and finds the perfect roles using LLM integration and real-time job search via the Adzuna API. Built with a modern React frontend and FastAPI backend.",
     tech: ["React", "FastAPI", "HuggingFace", "Llama-3.1", "Adzuna API"],
+    image: "/projects/resumematch.png",
     github: "https://github.com/Bharadwaz004/AI_Job_finder",
     live: "https://ai-job-finder-ten.vercel.app/",
     category: "AI",
@@ -85,29 +93,10 @@ const projects = [
   },
   {
     id: 4,
-    title: "Fake News Detector",
-    description: "A fine-tuned DistilBERT transformer model for fake news classification, achieving 92% accuracy. Includes a complete data pipeline for preprocessing and tokenizing raw labeled text data into tensor representations.",
-    tech: ["TensorFlow", "DistilBERT", "NLP", "Python"],
-    github: "",
-    live: "",
-    category: "AI",
-    color: "#d9a441",
-  },
-  {
-    id: 5,
-    title: "DesiCart Support Copilot",
-    description: "A customer support agent for an e-commerce store that answers policy and order questions entirely through a live MCP server. A \"glass box\" UI streams the conversation alongside the real MCP protocol trace, showing tool discovery and calls as they happen — nothing is stubbed for the demo.",
-    tech: ["Python", "FastAPI", "MCP", "Qdrant", "HuggingFace", "Docker"],
-    github: "https://github.com/Bharadwaz004/ecom_support",
-    live: "https://ecomsupport-production.up.railway.app/",
-    category: "AI",
-    color: "#e0783c",
-  },
-  {
-    id: 6,
     title: "Distributed Rate Limiter",
-    description: "A token-bucket rate limiter that stays exact across load-balanced API replicas by running its read-refill-decide-write logic as an atomic Redis Lua script. Verified at 2,000 concurrent requests against a 100-token rule — exactly 100 allowed, 1,900 denied — for ~0.8ms added latency.",
-    tech: ["Python", "FastAPI", "Redis", "Lua", "nginx", "Docker"],
+    description: "Redis-backed rate-limiting middleware for FastAPI that enforces exact per-key limits across load-balanced replicas, with the token bucket running as an atomic Redis Lua script to eliminate read-check-write races. Admits exactly 100 of 2,000 concurrent requests at 4,000+ req/s.",
+    tech: ["REST API", "FastAPI", "Redis", "Lua", "Docker", "Nginx"],
+    image: "/projects/ratelimiter.png",
     github: "https://github.com/Bharadwaz004/rate-limiter",
     live: "",
     category: "Systems",
@@ -261,12 +250,24 @@ function CloudIcon({ size = 20 }) {
   );
 }
 
+function BlueprintIcon({ size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
+      <path d="M6.5 10v4.5a2 2 0 0 0 2 2H14" />
+      <path d="M17.5 14V9.5a2 2 0 0 0-2-2H10" />
+    </svg>
+  );
+}
+
 const categoryMeta = {
   "Languages": { color: "#4169e1", icon: <CodeIcon /> },
   "Frameworks": { color: "#e8c26a", icon: <LayersIcon /> },
   "AI/ML": { color: "#6d8dff", icon: <SparklesIcon /> },
   "Databases": { color: "#d9a441", icon: <DatabaseIcon /> },
   "Cloud & DevOps": { color: "#8fa8ff", icon: <CloudIcon /> },
+  "Engineering": { color: "#3fa796", icon: <BlueprintIcon /> },
 };
 
 const issuerBrands = {
@@ -681,6 +682,11 @@ function ProjectCard({ project, index }) {
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
       >
+        {project.image && (
+          <div className="project-media" aria-hidden="true">
+            <img src={project.image} alt="" loading="lazy" />
+          </div>
+        )}
         <div className="project-top">
           <span className="project-number">0{index + 1}</span>
         </div>
@@ -1396,6 +1402,41 @@ export default function Portfolio() {
           border-color: color-mix(in srgb, var(--project-color) 55%, transparent);
           box-shadow: 0 18px 44px -18px color-mix(in srgb, var(--project-color) 45%, transparent);
         }
+        /* Screenshot banner at the top of the card. It bleeds past the card padding
+           and is masked to fade out at the bottom so it dissolves into the copy. */
+        .project-media {
+          position: relative;
+          margin: -30px -30px 20px;
+          height: 168px;
+          overflow: hidden;
+          pointer-events: none;
+          -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, rgba(0, 0, 0, 0.5) 72%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 40%, rgba(0, 0, 0, 0.5) 72%, transparent 100%);
+        }
+        .project-media img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top left;
+          opacity: 0.75;
+          transform: scale(1.01);
+          transform-origin: top left;
+          transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        /* Accent wash + a soft darkening toward the fade line. */
+        .project-media::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(150deg, color-mix(in srgb, var(--project-color) 26%, transparent), transparent 60%),
+            linear-gradient(to bottom, transparent 35%, rgba(9, 9, 11, 0.85) 100%);
+        }
+        .project-card:hover .project-media img { opacity: 0.95; transform: scale(1.05); }
+        @media (prefers-reduced-motion: reduce) {
+          .project-media img, .project-card:hover .project-media img { transition: none; transform: scale(1.01); }
+        }
         .project-top {
           display: flex;
           justify-content: space-between;
@@ -1553,6 +1594,7 @@ export default function Portfolio() {
           .mobile-toggle { display: block; }
           .about-grid { grid-template-columns: 1fr; gap: 36px; }
           .skills-grid, .projects-grid, .certs-grid { grid-template-columns: 1fr; }
+          .project-media { height: 140px; }
           .section { padding-top: 84px; }
         }
 
