@@ -17,7 +17,7 @@ I'm continuously exploring advancements in AI, LLMs, and scalable software syste
   linkedin: "https://www.linkedin.com/in/bharadwazavula",
   phone: "7032975357",
   location: "Hyderabad, India",
-  resumeLink: "/resume.pdf", // place resume.pdf in the public/ folder
+  resumeLink: "/Bharadwaz_2026.pdf", // place resume.pdf in the public/ folder
 };
 
 const roles = [
